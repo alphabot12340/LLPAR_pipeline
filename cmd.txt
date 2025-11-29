@@ -1,0 +1,6 @@
+Steps to setup:
+1)Run conda create -n deyolo python=3.10
+2)conda activate deyolo
+3)pip install -e .
+4)Run this
+python predict_and_crop.py --pt-file "./weights/best.pt" --vis-source "./vis_val/190001.jpg" --ir-source "./Ir_val/190001.jpg" --output "./crop_result" --conf 0.25

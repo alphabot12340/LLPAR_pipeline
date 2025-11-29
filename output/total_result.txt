@@ -1,0 +1,90 @@
+PEDESTRIAN ATTRIBUTE INFERENCE RESULTS
+======================================
+
+Image: 190001_pred0.jpg
+Processing time: 0.0888 seconds
+
+Predicted attributes (over 0.50):
+  Female: 1.0000
+  Trousers: 0.9997
+  ShoulderBag: 0.9984
+  Age18-60: 0.9976
+  Front: 0.9785
+  LongCoat: 0.5829
+
+All attribute probabilities:
+  Female: 1.0000
+  Trousers: 0.9997
+  ShoulderBag: 0.9984
+  Age18-60: 0.9976
+  Front: 0.9785
+  LongCoat: 0.5829
+  Glasses: 0.2551
+  Hat: 0.1291
+  LongSleeve: 0.0990
+  Side: 0.0240
+  AgeLess18: 0.0007
+  AgeOver60: 0.0006
+  Back: 0.0006
+  HoldObjectsInFront: 0.0004
+  Boots: 0.0004
+  UpperLogo: 0.0002
+  UpperSplice: 0.0002
+  ShortSleeve: 0.0001
+  LowerPattern: 0.0001
+  Shorts: 0.0001
+  UpperPlaid: 0.0001
+  UpperStride: 0.0001
+  HandBag: 0.0001
+  LowerStripe: 0.0000
+  Skirt&Dress: 0.0000
+  Backpack: 0.0000
+
+----------------------------------------
+
+Image: 190001_pred1.jpg
+Processing time: 0.0389 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9994
+  Age18-60: 0.9938
+  LongSleeve: 0.7853
+  Glasses: 0.6573
+  Front: 0.6300
+
+All attribute probabilities:
+  Trousers: 0.9994
+  Age18-60: 0.9938
+  LongSleeve: 0.7853
+  Glasses: 0.6573
+  Front: 0.6300
+  Side: 0.2397
+  Hat: 0.0075
+  LongCoat: 0.0043
+  Back: 0.0032
+  AgeOver60: 0.0011
+  UpperLogo: 0.0008
+  AgeLess18: 0.0005
+  UpperPlaid: 0.0003
+  LowerStripe: 0.0001
+  UpperStride: 0.0000
+  Shorts: 0.0000
+  Boots: 0.0000
+  Backpack: 0.0000
+  ShortSleeve: 0.0000
+  Female: 0.0000
+  UpperSplice: 0.0000
+  LowerPattern: 0.0000
+  HoldObjectsInFront: 0.0000
+  Skirt&Dress: 0.0000
+  ShoulderBag: 0.0000
+  HandBag: 0.0000
+
+----------------------------------------
+
+
+SUMMARY
+=======
+Total images processed: 2
+Total runtime: 0.1278 seconds
+Average per image: 0.0639 seconds

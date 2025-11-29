@@ -1,0 +1,408 @@
+PEDESTRIAN ATTRIBUTE INFERENCE RESULTS
+======================================
+
+Image: 190001_ann0.jpg
+Processing time: 0.2701 seconds
+
+Predicted attributes (over 0.50):
+  Female: 0.9999
+  ShoulderBag: 0.9943
+  Trousers: 0.9923
+  Age18-60: 0.9803
+  Front: 0.9182
+
+All attribute probabilities:
+  Female: 0.9999
+  ShoulderBag: 0.9943
+  Trousers: 0.9923
+  Age18-60: 0.9803
+  Front: 0.9182
+  Glasses: 0.3617
+  LongCoat: 0.2704
+  Side: 0.1443
+  LongSleeve: 0.0914
+  Hat: 0.0406
+  AgeLess18: 0.0156
+  UpperLogo: 0.0024
+  HoldObjectsInFront: 0.0024
+  AgeOver60: 0.0023
+  Boots: 0.0023
+  Back: 0.0011
+  UpperSplice: 0.0009
+  HandBag: 0.0009
+  ShortSleeve: 0.0009
+  UpperStride: 0.0007
+  LowerPattern: 0.0007
+  UpperPlaid: 0.0006
+  Shorts: 0.0006
+  LowerStripe: 0.0001
+  Skirt&Dress: 0.0000
+  Backpack: 0.0000
+
+----------------------------------------
+
+Image: 190006_ann0.jpg
+Processing time: 0.0429 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9993
+  Age18-60: 0.9962
+  Side: 0.9951
+  Hat: 0.8530
+  LongSleeve: 0.7650
+  Glasses: 0.7378
+  ShoulderBag: 0.7287
+  Female: 0.5638
+
+All attribute probabilities:
+  Trousers: 0.9993
+  Age18-60: 0.9962
+  Side: 0.9951
+  Hat: 0.8530
+  LongSleeve: 0.7650
+  Glasses: 0.7378
+  ShoulderBag: 0.7287
+  Female: 0.5638
+  LongCoat: 0.0811
+  UpperLogo: 0.0202
+  Back: 0.0068
+  Front: 0.0054
+  AgeLess18: 0.0042
+  Backpack: 0.0041
+  AgeOver60: 0.0033
+  HoldObjectsInFront: 0.0022
+  Skirt&Dress: 0.0008
+  Shorts: 0.0007
+  UpperPlaid: 0.0006
+  ShortSleeve: 0.0006
+  LowerPattern: 0.0005
+  UpperSplice: 0.0004
+  LowerStripe: 0.0004
+  UpperStride: 0.0004
+  HandBag: 0.0004
+  Boots: 0.0002
+
+----------------------------------------
+
+Image: 190010_ann0.jpg
+Processing time: 0.0468 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9950
+  Front: 0.9902
+  Age18-60: 0.9899
+  LongCoat: 0.9835
+
+All attribute probabilities:
+  Trousers: 0.9950
+  Front: 0.9902
+  Age18-60: 0.9899
+  LongCoat: 0.9835
+  HoldObjectsInFront: 0.3610
+  Hat: 0.1407
+  UpperLogo: 0.0739
+  Side: 0.0264
+  Glasses: 0.0178
+  Female: 0.0127
+  AgeOver60: 0.0084
+  LongSleeve: 0.0065
+  Back: 0.0009
+  AgeLess18: 0.0008
+  HandBag: 0.0003
+  LowerPattern: 0.0003
+  Backpack: 0.0003
+  UpperPlaid: 0.0003
+  UpperSplice: 0.0002
+  Boots: 0.0002
+  UpperStride: 0.0002
+  Shorts: 0.0002
+  ShortSleeve: 0.0001
+  ShoulderBag: 0.0001
+  Skirt&Dress: 0.0001
+  LowerStripe: 0.0000
+
+----------------------------------------
+
+Image: 190011_ann0.jpg
+Processing time: 0.0588 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9997
+  Front: 0.9986
+  Age18-60: 0.9763
+  Glasses: 0.7892
+
+All attribute probabilities:
+  Trousers: 0.9997
+  Front: 0.9986
+  Age18-60: 0.9763
+  Glasses: 0.7892
+  LongCoat: 0.2888
+  LongSleeve: 0.2705
+  HoldObjectsInFront: 0.1715
+  Hat: 0.0054
+  AgeOver60: 0.0034
+  Side: 0.0014
+  AgeLess18: 0.0010
+  UpperLogo: 0.0001
+  Back: 0.0001
+  Boots: 0.0001
+  UpperPlaid: 0.0001
+  Female: 0.0001
+  UpperStride: 0.0000
+  LowerPattern: 0.0000
+  ShortSleeve: 0.0000
+  Shorts: 0.0000
+  UpperSplice: 0.0000
+  LowerStripe: 0.0000
+  HandBag: 0.0000
+  Skirt&Dress: 0.0000
+  ShoulderBag: 0.0000
+  Backpack: 0.0000
+
+----------------------------------------
+
+Image: 190020_ann1.jpg
+Processing time: 0.0439 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9960
+  LongCoat: 0.9949
+  Side: 0.5328
+
+All attribute probabilities:
+  Trousers: 0.9960
+  LongCoat: 0.9949
+  Side: 0.5328
+  AgeOver60: 0.4732
+  Front: 0.3803
+  AgeLess18: 0.3446
+  Age18-60: 0.0934
+  Glasses: 0.0781
+  Back: 0.0572
+  HandBag: 0.0475
+  Backpack: 0.0399
+  Female: 0.0216
+  HoldObjectsInFront: 0.0212
+  ShoulderBag: 0.0191
+  Hat: 0.0134
+  LongSleeve: 0.0120
+  UpperLogo: 0.0091
+  Boots: 0.0074
+  LowerPattern: 0.0049
+  UpperPlaid: 0.0044
+  Shorts: 0.0038
+  ShortSleeve: 0.0029
+  UpperSplice: 0.0027
+  Skirt&Dress: 0.0010
+  UpperStride: 0.0009
+  LowerStripe: 0.0009
+
+----------------------------------------
+
+Image: 190024_ann1.jpg
+Processing time: 0.0429 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9975
+  Front: 0.9884
+  Age18-60: 0.9398
+  LongCoat: 0.5227
+
+All attribute probabilities:
+  Trousers: 0.9975
+  Front: 0.9884
+  Age18-60: 0.9398
+  LongCoat: 0.5227
+  Glasses: 0.2349
+  HoldObjectsInFront: 0.2153
+  Female: 0.1666
+  LongSleeve: 0.0892
+  UpperLogo: 0.0724
+  AgeLess18: 0.0227
+  Side: 0.0089
+  Hat: 0.0079
+  AgeOver60: 0.0053
+  LowerStripe: 0.0035
+  Backpack: 0.0031
+  ShoulderBag: 0.0025
+  UpperStride: 0.0014
+  UpperPlaid: 0.0011
+  LowerPattern: 0.0010
+  UpperSplice: 0.0009
+  Back: 0.0007
+  Shorts: 0.0006
+  ShortSleeve: 0.0006
+  Boots: 0.0005
+  Skirt&Dress: 0.0001
+  HandBag: 0.0001
+
+----------------------------------------
+
+Image: 190033_ann0.jpg
+Processing time: 0.0429 seconds
+
+Predicted attributes (over 0.50):
+  Back: 0.9996
+  LongCoat: 0.9994
+  Female: 0.9921
+  Age18-60: 0.9877
+  Trousers: 0.9828
+
+All attribute probabilities:
+  Back: 0.9996
+  LongCoat: 0.9994
+  Female: 0.9921
+  Age18-60: 0.9877
+  Trousers: 0.9828
+  AgeOver60: 0.0572
+  Hat: 0.0075
+  Glasses: 0.0070
+  HoldObjectsInFront: 0.0033
+  HandBag: 0.0027
+  Backpack: 0.0016
+  ShoulderBag: 0.0015
+  LongSleeve: 0.0013
+  Side: 0.0009
+  UpperLogo: 0.0005
+  Skirt&Dress: 0.0001
+  ShortSleeve: 0.0001
+  LowerPattern: 0.0001
+  Boots: 0.0001
+  UpperStride: 0.0001
+  UpperSplice: 0.0001
+  Shorts: 0.0001
+  AgeLess18: 0.0001
+  Front: 0.0000
+  UpperPlaid: 0.0000
+  LowerStripe: 0.0000
+
+----------------------------------------
+
+Image: 190036_ann1.jpg
+Processing time: 0.0439 seconds
+
+Predicted attributes (over 0.50):
+  Age18-60: 0.9997
+  Front: 0.9980
+  Trousers: 0.9732
+  Glasses: 0.9376
+  LongCoat: 0.9078
+  HoldObjectsInFront: 0.8336
+
+All attribute probabilities:
+  Age18-60: 0.9997
+  Front: 0.9980
+  Trousers: 0.9732
+  Glasses: 0.9376
+  LongCoat: 0.9078
+  HoldObjectsInFront: 0.8336
+  LongSleeve: 0.2667
+  Hat: 0.1527
+  ShoulderBag: 0.1360
+  UpperLogo: 0.0998
+  Female: 0.0128
+  UpperStride: 0.0034
+  Side: 0.0012
+  UpperSplice: 0.0011
+  Boots: 0.0011
+  Back: 0.0009
+  UpperPlaid: 0.0009
+  LowerPattern: 0.0007
+  AgeLess18: 0.0006
+  ShortSleeve: 0.0005
+  Shorts: 0.0004
+  LowerStripe: 0.0003
+  AgeOver60: 0.0001
+  Skirt&Dress: 0.0001
+  Backpack: 0.0001
+  HandBag: 0.0000
+
+----------------------------------------
+
+Image: 190042_ann0.jpg
+Processing time: 0.0478 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9992
+  Front: 0.9961
+  LongCoat: 0.9942
+  Female: 0.9800
+  Age18-60: 0.8892
+
+All attribute probabilities:
+  Trousers: 0.9992
+  Front: 0.9961
+  LongCoat: 0.9942
+  Female: 0.9800
+  Age18-60: 0.8892
+  Backpack: 0.1262
+  HandBag: 0.1092
+  AgeOver60: 0.0997
+  Hat: 0.0885
+  ShoulderBag: 0.0638
+  Glasses: 0.0226
+  Side: 0.0164
+  AgeLess18: 0.0118
+  HoldObjectsInFront: 0.0065
+  Boots: 0.0043
+  LongSleeve: 0.0034
+  ShortSleeve: 0.0022
+  Back: 0.0019
+  Skirt&Dress: 0.0018
+  LowerPattern: 0.0018
+  Shorts: 0.0012
+  UpperPlaid: 0.0009
+  UpperSplice: 0.0008
+  UpperLogo: 0.0006
+  LowerStripe: 0.0006
+  UpperStride: 0.0005
+
+----------------------------------------
+
+Image: 190042_ann1.jpg
+Processing time: 0.0439 seconds
+
+Predicted attributes (over 0.50):
+  Trousers: 0.9981
+  LongCoat: 0.9939
+  Female: 0.9585
+  Front: 0.7832
+  Age18-60: 0.7095
+
+All attribute probabilities:
+  Trousers: 0.9981
+  LongCoat: 0.9939
+  Female: 0.9585
+  Front: 0.7832
+  Age18-60: 0.7095
+  Back: 0.3675
+  AgeOver60: 0.0604
+  AgeLess18: 0.0512
+  HoldObjectsInFront: 0.0186
+  Glasses: 0.0172
+  HandBag: 0.0128
+  Side: 0.0059
+  Backpack: 0.0058
+  LongSleeve: 0.0051
+  Hat: 0.0049
+  Boots: 0.0036
+  Skirt&Dress: 0.0019
+  LowerPattern: 0.0012
+  ShoulderBag: 0.0011
+  ShortSleeve: 0.0011
+  Shorts: 0.0007
+  LowerStripe: 0.0007
+  UpperStride: 0.0007
+  UpperPlaid: 0.0006
+  UpperSplice: 0.0004
+  UpperLogo: 0.0001
+
+----------------------------------------
+
+
+SUMMARY
+=======
+Total images processed: 10
+Total runtime: 0.6837 seconds
+Average per image: 0.0684 seconds

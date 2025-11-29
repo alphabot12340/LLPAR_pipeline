@@ -1,0 +1,8 @@
+Python3.9
+
+recreate env:
+conda env create -f environment.yml
+
+
+add on top of an existing env:
+conda env update -n env_name -f environment.yml
