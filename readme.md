@@ -1,7 +1,13 @@
 # Pedestrian Attribute Recognition Pipeline (VIS + IR, Multi‑Model)
 
 This repository contains a complete end‑to‑end pipeline for **Pedestrian Attribute Recognition (PAR)** using multi‑modal inputs (Visible + Infrared) and multiple deep learning models (LCNet, VTB, CNN).  
-It also supports **ensemble prediction**, YOLO‑based **detection + cropping**, and a clean organized output structure.
+It also supports **ensemble prediction** and YOLO‑based **detection** to perform cropping and create overlays.
+
+
+![Example Overlay](/ResearchDocs/imgs/190003_overlay.jpg)
+---
+
+## Requirements:
 
 Torch version expected: **CUDA 12.1 compatible**
 
@@ -31,23 +37,6 @@ Torch version expected: **CUDA 12.1 compatible**
 
 ---
 
-## Output Structure
-
-Each run creates:
-
-```
-_PRED_OUTPUT/
-  YYYY-MM-DD-HH-MM/
-      total_result.txt
-      crop_results/
-      bounding_boxes/
-      overlays/            (only if --save-overlays)
-      input_images/        (only if --save-input-images)
-         VI/
-         IR/
-```
-
----
 
 # Setting up and Running 
 
@@ -60,8 +49,7 @@ Download and place here:
 weights/resnet-18/CNN_STUDENT.pth
 ```
 
-Link:  
-https://drive.google.com/file/d/1xVZKzRYIjn0Q7UxJo2XiGWhMG18hq4IT/view?usp=sharing
+[Download link](https://drive.google.com/file/d/1xVZKzRYIjn0Q7UxJo2XiGWhMG18hq4IT/view?usp=sharing)  
 
 ---
 
@@ -72,8 +60,7 @@ Download and place here:
 weights/VTB/VTB_TEACHER.pth
 ```
 
-Link:  
-https://drive.google.com/file/d/1eUNfNCqBYKUC4QzURaW6BslbwaFaZyTT/view?usp=sharing
+[Download link](https://drive.google.com/file/d/1eUNfNCqBYKUC4QzURaW6BslbwaFaZyTT/view?usp=sharing)
 
 ---
 
@@ -136,6 +123,25 @@ Run:
 ```
 python run_pipeline.py --m --threshold 0.5
 ```
+
+---
+
+## Output Structure
+
+Each run creates:
+
+```
+_PRED_OUTPUT/
+  YYYY-MM-DD-HH-MM/
+      total_result.txt
+      crop_results/
+      bounding_boxes/
+      overlays/            (only if --save-overlays)
+      input_images/        (only if --save-input-images)
+         VI/
+         IR/
+```
+
 
 ---
 
@@ -242,7 +248,36 @@ Contains for each cropped person:
 
 ---
 
-## Notes
+## Sources
 
-- Script automatically creates timestamped folders under `_PRED_OUTPUT/`
-- YOLO detection runs once per pair, crops fed to all models
+#### Research
+
+Full Research docs are available in /ResearchDocs, containing a paper and a poster describing the methodology and research conducted to produce and implement these models
+
+##### PP-LCNet Model:
+
+[Github Link](https://github.com/PaddlePaddle/PaddleX)
+
+
+##### VTB-Model:
+
+[Github Link](https://github.com/cxh0519/VTB)
+
+##### OpenPar Student-Teacher Framework:
+
+[Github Link](https://github.com/Event-AHU/OpenPAR)
+
+##### Deyolo
+
+[Github link](https://github.com/chips96/DEYOLO)
+
+##### LLVIP Dataset
+
+[Github Link](https://github.com/bupt-ai-cz/LLVIP/tree/main)
+
+##### PA-100K Dataset
+
+[Kaggle Link](https://www.kaggle.com/datasets/yuulind/pa-100k)
+
+[Github Link](https://github.com/xh-liu/HydraPlus-Net)
+

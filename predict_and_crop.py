@@ -200,7 +200,7 @@ def predict_and_crop(
             box_dicts.append({"x1": x1, "y1": y1, "x2": x2, "y2": y2})
 
             if overlay_img is not None:
-                cv2.rectangle(overlay_img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.rectangle(overlay_img, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
         # Save bounding boxes JSON
         if bbox_root_path is not None and box_dicts:
