@@ -1,204 +1,227 @@
 """
-Multi-Model Pedestrian Attribute Recognition Pipeline
-Orchestrates LCNet, VTB, and CNN predictions on cropped images
+test.py — Attribute inference stage of PAR pipeline
+
+Supports:
+    --LCNet
+    --VTB
+    --CNN
+    --ensemble
 """
+
 import os
 import time
-from LCNetPredict import LCNetPredictor
-from VTBPredict import VTBPredictor
-from CNNPredict import CNNPredictor
+import argparse
+
+from Ensemble_Models_Predict import vote_ensemble, moe_ensemble
 
 
-def format_model_section(model_name, results, threshold=0.5):
-    """Format results for a single model"""
+# ----------------------------------------------------------
+# Optional model imports (loaded only if requested)
+# ----------------------------------------------------------
+
+def load_lcnet():
+    from LCNetPredict import LCNetPredictor
+    return LCNetPredictor("PP-LCNet_x1_0_pedestrian_attribute_infer")
+
+def load_vtb():
+    from VTBPredict import VTBPredictor
+    return VTBPredictor(
+        checkpoint_path="./weights/VTB/VTB_TEACHER.pth",
+        vit_pretrain_path="./weights/jx_vit_base_p16_224-80ecf9dd.pth",
+    )
+
+def load_cnn():
+    from CNNPredict import CNNPredictor
+    return CNNPredictor(
+        checkpoint_path="./weights/resnet-18/CNN_STUDENT.pth",
+        vit_pretrain_path="./weights/jx_vit_base_p16_224-80ecf9dd.pth",
+    )
+
+
+# ----------------------------------------------------------
+# Formatting helper
+# ----------------------------------------------------------
+
+def format_model_section(name, results, threshold):
     lines = []
-    lines.append(f"\n{'=' * 60}")
-    lines.append(f"MODEL: {model_name}")
-    lines.append(f"{'=' * 60}")
-    lines.append(f"Processing time: {results['time']:.4f} seconds\n")
-    
-    if 'error' in results:
-        lines.append(f"ERROR: {results['error']}\n")
-        return lines
-    
-    # Predicted attributes (above threshold)
-    lines.append(f"Predicted attributes (over {threshold:.2f}):")
-    if results['predicted']:
-        for label, score in results['predicted']:
-            lines.append(f"  {label}: {score:.4f}")
+    lines.append("\n" + "=" * 60)
+    lines.append(f"MODEL: {name}")
+    lines.append("=" * 60)
+
+    time_val = results["time"]
+    if isinstance(time_val, float):
+        lines.append(f"Processing time: {time_val:.4f} seconds\n")
     else:
-        lines.append(f"  (none above threshold)")
-    
-    # All attributes sorted by score
+        lines.append(f"Processing time: {time_val}\n")
+
+    # predictions
+    lines.append(f"Predicted attributes (over {threshold:.2f}):")
+    if results["predicted"]:
+        for label, score in results["predicted"]:
+            if isinstance(score, float):
+                lines.append(f"  {label}: {score:.4f}")
+            else:
+                lines.append(f"  {label}: {score}")
+    else:
+        lines.append("  (none)")
+
     lines.append("\nAll attribute probabilities:")
-    sorted_attrs = sorted(zip(results['labels'], results['scores']), 
-                         key=lambda x: x[1], reverse=True)
+    sorted_attrs = sorted(zip(results["labels"], results["scores"]), key=lambda x: x[1], reverse=True)
+
     for label, score in sorted_attrs:
-        lines.append(f"  {label}: {score:.4f}")
-    
+        if isinstance(score, float):
+            lines.append(f"  {label}: {score:.4f}")
+        else:
+            lines.append(f"  {label}: {score}")
+
     return lines
 
 
-def process_images(image_dir="./crop_result", output_dir="./output", threshold=0.5):
-    """
-    Process all images with all three models
-    
-    Args:
-        image_dir: Directory containing cropped images
-        output_dir: Directory for output files
-        threshold: Confidence threshold for predictions
-    """
+# ----------------------------------------------------------
+# MAIN PROCESS FUNCTION
+# ----------------------------------------------------------
+
+def process_images(image_dir, output_dir, threshold, run_lc, run_vt, run_cn, run_ensemble):
+
     os.makedirs(output_dir, exist_ok=True)
-    
-    # Initialize models
-    print("=" * 60)
-    print("Initializing models...")
-    print("=" * 60)
-    
-    lcnet = LCNetPredictor("PP-LCNet_x1_0_pedestrian_attribute_infer")
-    vtb = VTBPredictor(
-        checkpoint_path="./weights/VTB/VTB_TEACHER.pth",
-        vit_pretrain_path="./weights/jx_vit_base_p16_224-80ecf9dd.pth"
-    )
-    cnn = CNNPredictor(
-        checkpoint_path="./weights/resnet-18/CNN_STUDENT.pth",
-        vit_pretrain_path="./weights/jx_vit_base_p16_224-80ecf9dd.pth"
-    )
-    
-    print("\n" + "=" * 60)
-    print("All models loaded successfully!")
-    print("=" * 60 + "\n")
-    
-    # Output file
-    total_txt_path = os.path.join(output_dir, "total_result.txt")
-    
-    # Get all images
-    image_files = [
-        f for f in os.listdir(image_dir)
-        if f.lower().endswith((".jpg", ".jpeg", ".png", ".bmp"))
-    ]
-    image_files.sort()
-    
+    outfile = os.path.join(output_dir, "total_result.txt")
+
+    image_files = sorted([f for f in os.listdir(image_dir)
+                          if f.lower().endswith((".jpg", ".jpeg", ".png", ".bmp"))])
+
     if not image_files:
-        print(f"No images found in {image_dir}")
+        print("No valid images in:", image_dir)
         return
-    
-    print(f"Found {len(image_files)} images to process\n")
-    
-    # Initialize output file
-    with open(total_txt_path, "w", encoding="utf-8") as f:
+
+    # Load models only if requested
+    lcnet = load_lcnet() if run_lc else None
+    vtbn  = load_vtb()   if run_vt else None
+    cnnm  = load_cnn()   if run_cn else None
+
+    # Summary timers
+    total_times = {"lc": 0, "vt": 0, "cn": 0}
+
+    with open(outfile, "w", encoding="utf-8") as f:
         f.write("MULTI-MODEL PEDESTRIAN ATTRIBUTE RECOGNITION RESULTS\n")
         f.write("=" * 60 + "\n")
-        f.write(f"Models: LCNet (PaddleX), VTB (VTFPAR++), CNN (ResNet18)\n")
+        f.write("Models: ")
+        if run_lc: f.write("LCNet  ")
+        if run_vt: f.write("VTB  ")
+        if run_cn: f.write("CNN  ")
+        if run_ensemble: f.write("| Ensembles (Vote + MoE)")
+        f.write("\n")
         f.write(f"Total images: {len(image_files)}\n")
         f.write(f"Threshold: {threshold}\n")
         f.write("=" * 60 + "\n")
-    
-    # Process each image
-    total_time = {
-        'lcnet': 0.0,
-        'vtb': 0.0,
-        'cnn': 0.0,
-        'overall': 0.0
-    }
-    
-    for idx, filename in enumerate(image_files, 1):
-        img_path = os.path.join(image_dir, filename)
-        
-        print(f"[{idx}/{len(image_files)}] Processing: {filename}")
-        
-        overall_start = time.time()
-        
-        # Run all models
-        lcnet_results = lcnet.predict(img_path, threshold)
-        vtb_results = vtb.predict(img_path, threshold)
-        cnn_results = cnn.predict(img_path, threshold)
-        
-        overall_time = time.time() - overall_start
-        
-        total_time['lcnet'] += lcnet_results['time']
-        total_time['vtb'] += vtb_results['time']
-        total_time['cnn'] += cnn_results['time']
-        total_time['overall'] += overall_time
-        
-        # Write to file
-        with open(total_txt_path, "a", encoding="utf-8") as f:
-            f.write("\n\n" + "=" * 60 + "\n")
-            f.write(f"IMAGE {idx}/{len(image_files)}: {filename}\n")
-            f.write("=" * 60 + "\n")
-            f.write(f"Total processing time: {overall_time:.4f} seconds\n")
-            
-            # LCNet section
-            for line in format_model_section("LCNet (PaddleX)", lcnet_results, threshold):
-                f.write(line + "\n")
-            
-            # VTB section
-            for line in format_model_section("VTB (VTFPAR++)", vtb_results, threshold):
-                f.write(line + "\n")
-            
-            # CNN section
-            for line in format_model_section("CNN (ResNet18 Student)", cnn_results, threshold):
-                f.write(line + "\n")
-        
-        print(f"  ✓ LCNet: {lcnet_results['time']:.3f}s | VTB: {vtb_results['time']:.3f}s | CNN: {cnn_results['time']:.3f}s | Total: {overall_time:.3f}s")
-    
-    # Write summary
-    num_images = len(image_files)
-    with open(total_txt_path, "a", encoding="utf-8") as f:
-        f.write("\n\n" + "=" * 60 + "\n")
-        f.write("FINAL SUMMARY\n")
-        f.write("=" * 60 + "\n")
-        f.write(f"Total images processed: {num_images}\n")
-        f.write(f"\nTotal runtime by model:\n")
-        f.write(f"  LCNet:   {total_time['lcnet']:.4f} seconds ({total_time['lcnet']/num_images:.4f}s per image)\n")
-        f.write(f"  VTB:     {total_time['vtb']:.4f} seconds ({total_time['vtb']/num_images:.4f}s per image)\n")
-        f.write(f"  CNN:     {total_time['cnn']:.4f} seconds ({total_time['cnn']/num_images:.4f}s per image)\n")
-        f.write(f"  Overall: {total_time['overall']:.4f} seconds ({total_time['overall']/num_images:.4f}s per image)\n")
-        f.write(f"\nAverage time per image: {total_time['overall']/num_images:.4f} seconds\n")
-        f.write("=" * 60 + "\n")
-    
-    print("\n" + "=" * 60)
-    print("PROCESSING COMPLETE!")
-    print("=" * 60)
-    print(f"Total images: {num_images}")
-    print(f"Total time: {total_time['overall']:.2f}s")
-    print(f"Average per image: {total_time['overall']/num_images:.4f}s")
-    print(f"\nResults saved to: {total_txt_path}")
-    print("=" * 60)
 
+    # MAIN LOOP
+    for idx, img_name in enumerate(image_files, 1):
+        path = os.path.join(image_dir, img_name)
+        print(f"[{idx}/{len(image_files)}] Processing:", img_name)
+
+        # base model outputs
+        lc_res = vt_res = cn_res = None
+        overall_start = time.time()
+
+        if run_lc:
+            lc_res = lcnet.predict(path, threshold)
+            total_times["lc"] += lc_res["time"]
+
+        if run_vt:
+            vt_res = vtbn.predict(path, threshold)
+            total_times["vt"] += vt_res["time"]
+
+        if run_cn:
+            cn_res = cnnm.predict(path, threshold)
+            total_times["cn"] += cn_res["time"]
+
+        overall_time = time.time() - overall_start
+
+        # ensembles
+        if run_ensemble:
+            vote_res = vote_ensemble(lc_res, vt_res, cn_res, threshold)
+            moe_res  = moe_ensemble(lc_res, vt_res, cn_res)
+
+        with open(outfile, "a", encoding="utf-8") as f:
+
+            f.write("\n\n" + "=" * 60 + "\n")
+            f.write(f"IMAGE {idx}/{len(image_files)}: {img_name}\n")
+            f.write("=" * 60 + "\n")
+            f.write(f"Total processing time: {overall_time:.4f} sec\n")
+
+            if run_lc:
+                for line in format_model_section("LCNet", lc_res, threshold):
+                    f.write(line + "\n")
+
+            if run_vt:
+                for line in format_model_section("VTB", vt_res, threshold):
+                    f.write(line + "\n")
+
+            if run_cn:
+                for line in format_model_section("CNN", cn_res, threshold):
+                    f.write(line + "\n")
+
+            if run_ensemble:
+                for line in format_model_section("Vote Ensemble", vote_res, threshold):
+                    f.write(line + "\n")
+                for line in format_model_section("MoE Ensemble", moe_res, threshold):
+                    f.write(line + "\n")
+
+    print("\nPROCESSING COMPLETE!")
+    print("Results saved to:", outfile)
+
+
+# ----------------------------------------------------------
+# ENTRYPOINT
+# ----------------------------------------------------------
 
 def main():
-    """Main entry point"""
-    import argparse
-    parser = argparse.ArgumentParser(
-        description="Run multi-model pedestrian attribute recognition"
-    )
-    parser.add_argument(
-        "--image-dir",
-        default="./crop_result",
-        help="Directory containing cropped images (default: ./crop_result)"
-    )
-    parser.add_argument(
-        "--output-dir",
-        default="./output",
-        help="Output directory (default: ./output)"
-    )
-    parser.add_argument(
-        "--threshold",
-        type=float,
-        default=0.5,
-        help="Confidence threshold for predictions (default: 0.5)"
-    )
-    
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--image-dir", default="./crop_results")
+    parser.add_argument("--output-dir", default="./output")
+    parser.add_argument("--threshold", type=float, default=0.5)
+
+    parser.add_argument("--LCNet", action="store_true")
+    parser.add_argument("--VTB", action="store_true")
+    parser.add_argument("--CNN", action="store_true")
+
+    parser.add_argument("--ensemble", action="store_true")
+
     args = parser.parse_args()
-    
+
+    # Determine models to run
+    selected = [args.LCNet, args.VTB, args.CNN]
+    num_selected = sum(selected)
+
+    # If none selected → run all
+    if num_selected == 0:
+        run_lc = run_vt = run_cn = True
+
+    else:
+        run_lc = args.LCNet
+        run_vt = args.VTB
+        run_cn = args.CNN
+
+    # Ensemble restriction
+    if args.ensemble:
+        if num_selected not in (0, 3):
+            print("ERROR: --ensemble requires ALL base models.\n"
+                  "Fix by:\n"
+                  "  → remove model flags (run all models), OR\n"
+                  "  → set: --LCNet --VTB --CNN")
+            sys.exit(1)
+
     process_images(
-        image_dir=args.image_dir,
-        output_dir=args.output_dir,
-        threshold=args.threshold
+        args.image-dir, 
+        args.output-dir,
+        args.threshold,
+        run_lc,
+        run_vt,
+        run_cn,
+        args.ensemble
     )
 
 
 if __name__ == "__main__":
     main()
-
