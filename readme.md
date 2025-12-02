@@ -49,6 +49,8 @@ _PRED_OUTPUT/
 
 ---
 
+# Setting up and Running 
+
 ## Download Required Weights
 
 ### CNN Student model  
@@ -115,7 +117,7 @@ python run_pipeline.py --s     --vis-source ./_PRED_INPUT/VI/190001.jpg     --ir
 
 ## Batch / Multi‑Image Prediction
 
-Place paired filenames:
+Place multiple paired filenames in the following folders:
 
 ```
 _PRED_INPUT/VI/
@@ -137,7 +139,17 @@ python run_pipeline.py --m --threshold 0.5
 
 ---
 
-## Command Line Arguments (Updated)
+## Command Line Arguments 
+
+### Threshold
+
+Modifies how high the threshold to predict an attribute should be
+
+Example usage:
+
+```
+python run_pipeline.py --m --threshold 0.4
+```
 
 ### Model Selection
 
@@ -156,13 +168,13 @@ Examples:
 Run only LCNet:
 
 ```
-python run_pipeline.py --s --LCNet
+python run_pipeline.py --s     --vis-source ./_PRED_INPUT/VI/190001.jpg     --ir-source ./_PRED_INPUT/IR/190001.jpg     --threshold 0.5 --LCNet
 ```
 
 Run LCNet + CNN:
 
 ```
-python run_pipeline.py --m --LCNet --CNN
+python run_pipeline.py --s     --vis-source ./_PRED_INPUT/VI/190001.jpg     --ir-source ./_PRED_INPUT/IR/190001.jpg --threshold 0.5 --LCNet --CNN
 ```
 
 ---
@@ -181,13 +193,13 @@ If you specify `--ensemble` but exclude a model, an error will occur.
 Valid:
 
 ```
-python run_pipeline.py --s --ensemble
+python run_pipeline.py --s  --vis-source ./_PRED_INPUT/VI/190001.jpg     --ir-source ./_PRED_INPUT/IR/190001.jpg     --threshold 0.5 --ensemble
 ```
 
 Invalid:
 
 ```
-python run_pipeline.py --s --LCNet --ensemble
+python run_pipeline.py --s --vis-source ./_PRED_INPUT/VI/190001.jpg     --ir-source ./_PRED_INPUT/IR/190001.jpg  --threshold 0.5 --LCNet --ensemble
 ```
 
 ---
@@ -207,7 +219,7 @@ python run_pipeline.py --s --LCNet --ensemble
 Example with all output extras:
 
 ```
-python run_pipeline.py --m --save-overlays --save-input-images --ensemble
+python run_pipeline.py --m --save-overlays --save-input-images -- threshold 0.5 --ensemble
 ```
 
 ---

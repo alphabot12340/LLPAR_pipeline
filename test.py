@@ -213,8 +213,8 @@ def main():
             sys.exit(1)
 
     process_images(
-        args.image-dir, 
-        args.output-dir,
+        args.image_dir, 
+        args.output_dir,
         args.threshold,
         run_lc,
         run_vt,
