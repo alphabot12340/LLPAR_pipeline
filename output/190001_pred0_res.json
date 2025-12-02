@@ -1,5 +1,5 @@
 {
-    "input_path": "./crop_result\\190001_pred0.jpg",
+    "input_path": "./crop_result/190001_pred0.jpg",
     "page_index": null,
     "class_ids": [
         22,

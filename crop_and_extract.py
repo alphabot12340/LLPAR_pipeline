@@ -25,7 +25,7 @@ def main():
     # Resolve paths relative to this script's directory
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
-    pt_file = os.path.join(base_dir, "weights", "best.pt")
+    pt_file = os.path.join(base_dir, "weights/deyolo", "best.pt")
     output_dir = os.path.join(base_dir, "crop_result")
     predict_script = os.path.join(base_dir, "predict_and_crop.py")
     test_script = os.path.join(base_dir, "test.py")

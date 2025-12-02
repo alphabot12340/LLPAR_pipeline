@@ -1,8 +1,20 @@
-PEDESTRIAN ATTRIBUTE INFERENCE RESULTS
-======================================
+MULTI-MODEL PEDESTRIAN ATTRIBUTE RECOGNITION RESULTS
+============================================================
+Models: LCNet (PaddleX), VTB (VTFPAR++), CNN (ResNet18)
+Total images: 2
+Threshold: 0.5
+============================================================
 
-Image: 190001_pred0.jpg
-Processing time: 0.0888 seconds
+
+============================================================
+IMAGE 1/2: 190001_pred0.jpg
+============================================================
+Total processing time: 0.2670 seconds
+
+============================================================
+MODEL: LCNet (PaddleX)
+============================================================
+Processing time: 0.0199 seconds
 
 Predicted attributes (over 0.50):
   Female: 1.0000
@@ -40,10 +52,100 @@ All attribute probabilities:
   Skirt&Dress: 0.0000
   Backpack: 0.0000
 
-----------------------------------------
+============================================================
+MODEL: VTB (VTFPAR++)
+============================================================
+Processing time: 0.1882 seconds
 
-Image: 190001_pred1.jpg
-Processing time: 0.0389 seconds
+Predicted attributes (over 0.50):
+  Age18-60: 0.6668
+  AgeLess18: 0.6792
+  Side: 0.5026
+  Back: 0.6854
+  ShortSleeve: 0.5903
+  UpperStride: 0.5812
+  UpperSplice: 0.7004
+  LowerPattern: 0.6635
+
+All attribute probabilities:
+  UpperSplice: 0.7004
+  Back: 0.6854
+  AgeLess18: 0.6792
+  Age18-60: 0.6668
+  LowerPattern: 0.6635
+  ShortSleeve: 0.5903
+  UpperStride: 0.5812
+  Side: 0.5026
+  UpperLogo: 0.4712
+  LongCoat: 0.4649
+  Hat: 0.4573
+  boots: 0.4509
+  Glasses: 0.4454
+  Shorts: 0.4439
+  ShoulderBag: 0.4430
+  LowerStripe: 0.4333
+  Backpack: 0.4146
+  Female: 0.3980
+  AgeOver60: 0.3910
+  Skirt&Dress: 0.3883
+  Front: 0.3710
+  LongSleeve: 0.3595
+  HandBag: 0.3498
+  UpperPlaid: 0.3442
+  Trousers: 0.3426
+  HoldObjectsInFront: 0.3184
+
+============================================================
+MODEL: CNN (ResNet18 Student)
+============================================================
+Processing time: 0.0588 seconds
+
+Predicted attributes (over 0.50):
+  Female: 0.9363
+  Age18-60: 0.9999
+  Front: 0.9173
+  ShoulderBag: 0.5137
+  ShortSleeve: 1.0000
+  UpperLogo: 0.5003
+
+All attribute probabilities:
+  ShortSleeve: 1.0000
+  Age18-60: 0.9999
+  Female: 0.9363
+  Front: 0.9173
+  ShoulderBag: 0.5137
+  UpperLogo: 0.5003
+  Shorts: 0.2887
+  Skirt&Dress: 0.2456
+  Back: 0.1149
+  LowerStripe: 0.0347
+  Backpack: 0.0338
+  Trousers: 0.0316
+  LowerPattern: 0.0212
+  HoldObjectsInFront: 0.0206
+  UpperStride: 0.0203
+  Glasses: 0.0126
+  Side: 0.0067
+  boots: 0.0020
+  HandBag: 0.0017
+  UpperSplice: 0.0015
+  Hat: 0.0008
+  UpperPlaid: 0.0004
+  AgeOver60: 0.0002
+  LongCoat: 0.0002
+  AgeLess18: 0.0000
+  LongSleeve: 0.0000
+
+
+============================================================
+IMAGE 2/2: 190001_pred1.jpg
+============================================================
+Total processing time: 0.0315 seconds
+
+============================================================
+MODEL: LCNet (PaddleX)
+============================================================
+Processing time: 0.0066 seconds
 
 Predicted attributes (over 0.50):
   Trousers: 0.9994
@@ -80,11 +182,100 @@ All attribute probabilities:
   ShoulderBag: 0.0000
   HandBag: 0.0000
 
-----------------------------------------
+============================================================
+MODEL: VTB (VTFPAR++)
+============================================================
+Processing time: 0.0154 seconds
+
+Predicted attributes (over 0.50):
+  Age18-60: 0.6748
+  AgeLess18: 0.6873
+  Side: 0.5177
+  Back: 0.6630
+  ShortSleeve: 0.6235
+  UpperStride: 0.5733
+  UpperLogo: 0.5377
+  UpperSplice: 0.6999
+  LowerPattern: 0.6375
+
+All attribute probabilities:
+  UpperSplice: 0.6999
+  AgeLess18: 0.6873
+  Age18-60: 0.6748
+  Back: 0.6630
+  LowerPattern: 0.6375
+  ShortSleeve: 0.6235
+  UpperStride: 0.5733
+  UpperLogo: 0.5377
+  Side: 0.5177
+  Female: 0.4454
+  ShoulderBag: 0.4423
+  Glasses: 0.4418
+  boots: 0.4332
+  Hat: 0.4271
+  Shorts: 0.4236
+  AgeOver60: 0.4214
+  LongCoat: 0.4030
+  Skirt&Dress: 0.3980
+  HandBag: 0.3793
+  LowerStripe: 0.3762
+  Backpack: 0.3662
+  UpperPlaid: 0.3577
+  LongSleeve: 0.3542
+  Trousers: 0.3225
+  HoldObjectsInFront: 0.3064
+  Front: 0.2839
+
+============================================================
+MODEL: CNN (ResNet18 Student)
+============================================================
+Processing time: 0.0095 seconds
+
+Predicted attributes (over 0.50):
+  Age18-60: 0.9609
+  Back: 0.6733
+  ShortSleeve: 0.9975
+  Trousers: 0.5686
+
+All attribute probabilities:
+  ShortSleeve: 0.9975
+  Age18-60: 0.9609
+  Back: 0.6733
+  Trousers: 0.5686
+  UpperPlaid: 0.3857
+  UpperSplice: 0.3783
+  HoldObjectsInFront: 0.2598
+  Side: 0.1198
+  Front: 0.1134
+  Skirt&Dress: 0.0890
+  AgeLess18: 0.0504
+  Female: 0.0347
+  Glasses: 0.0338
+  Shorts: 0.0213
+  LowerStripe: 0.0185
+  LowerPattern: 0.0145
+  UpperLogo: 0.0110
+  UpperStride: 0.0096
+  boots: 0.0056
+  AgeOver60: 0.0043
+  Hat: 0.0040
+  ShoulderBag: 0.0033
+  LongCoat: 0.0031
+  LongSleeve: 0.0024
+  Backpack: 0.0020
+  HandBag: 0.0004
 
 
-SUMMARY
-=======
+============================================================
+FINAL SUMMARY
+============================================================
 Total images processed: 2
-Total runtime: 0.1278 seconds
-Average per image: 0.0639 seconds
+
+Total runtime by model:
+  LCNet:   0.0265 seconds (0.0132s per image)
+  VTB:     0.2036 seconds (0.1018s per image)
+  CNN:     0.0682 seconds (0.0341s per image)
+  Overall: 0.2985 seconds (0.1492s per image)
+
+Average time per image: 0.1492 seconds
+============================================================
